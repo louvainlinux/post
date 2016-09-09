@@ -1,0 +1,15 @@
+{
+  "name": "postinstall_service",
+  "version": "1.0.0",
+  "description": "a post install server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ludovic Zipsin",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "^2.11.1",
+    "sequelize": "^3.24.2"
+  }
+}
