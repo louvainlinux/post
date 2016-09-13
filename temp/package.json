@@ -1,0 +1,18 @@
+[
+	{
+		"descriptionShort": "desc1", 
+		"descriptionLong": "desc2", 
+		"name": "pkg1", 
+		"tag": ["tag3", "tag2", "tag1"], 
+		"preSelected": true, 
+		"category": ["cat3", "cat1", "cat2"]
+	}, 
+	{
+		"descriptionShort": "desc1", 
+		"descriptionLong": "desc2", 
+		"name": "pkg2", 
+		"tag": ["tag4", "tag5", "tag2", "tag1"], 
+		"preSelected": true, 
+		"category": ["cat5", "cat3", "cat1"]
+	}
+]

@@ -1,0 +1,13 @@
+name: "pkg1"
+description:
+  short: "desc1"
+  long: "desc2"
+preselected: true
+category:
+  - "cat1"
+  - "cat2"
+  - "cat3"
+tag:
+  - "tag1"
+  - "tag2"
+  - "tag3"

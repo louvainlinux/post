@@ -1,0 +1,15 @@
+primary:
+  pre: "pre primary 14.04"
+  install: "install primary 14.04"
+  post: "post primary 14.04"
+alternate:
+  -
+    description: "desc"
+    pre: "pre alternate 1 14.04"
+    install: "install alternate 1 14.04"
+    post: "post alternate 1 14.04"
+  -
+    description: "desc"
+    pre: "pre alternate 2 14.04"
+    install: "install alternate 2 14.04"
+    post: "post alternate 2 14.04"

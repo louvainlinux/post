@@ -1,2 +1,6 @@
 config/db_config.js
+.idea/*
+log.txt
+node_modules/*
+virtualenv/*
 
