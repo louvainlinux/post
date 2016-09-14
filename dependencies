@@ -1,0 +1,6 @@
+# apt
+//python-pip
+libmysqlclient-dev
+python-dev
+python-mysqldb
+python3-mysql.connector

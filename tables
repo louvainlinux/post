@@ -1,0 +1,63 @@
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(254)     | NO   |     | NULL    |                |
+| description | varchar(1024)    | NO   |     | NULL    |                |
+| preInstall  | varchar(1024)    | YES  |     | NULL    |                |
+| install     | varchar(1024)    | NO   |     | NULL    |                |
+| postInstall | varchar(1024)    | NO   |     | NULL    |                |
+| install_id  | int(10) unsigned | NO   |     | NULL    |                |
++-------------+------------------+------+-----+---------+----------------+
+
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(254)     | NO   | UNI | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(254)     | NO   |     | NULL    |                |
+| version     | varchar(10)      | NO   |     | NULL    |                |
+| preInstall  | varchar(1024)    | YES  |     | NULL    |                |
+| install     | varchar(1024)    | NO   |     | NULL    |                |
+| postInstall | varchar(1024)    | NO   |     | NULL    |                |
+| package_id  | int(10) unsigned | NO   |     | NULL    |                |
++-------------+------------------+------+-----+---------+----------------+
+
++------------------+------------------+------+-----+---------+----------------+
+| Field            | Type             | Null | Key | Default | Extra          |
++------------------+------------------+------+-----+---------+----------------+
+| id               | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name             | varchar(254)     | NO   | UNI | NULL    |                |
+| descriptionShort | varchar(1024)    | NO   |     | NULL    |                |
+| descriptionLong  | text             | NO   |     | NULL    |                |
+| preSelected      | int(10) unsigned | NO   |     | NULL    |                |
++------------------+------------------+------+-----+---------+----------------+
+
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| package_id  | int(10) unsigned | NO   |     | NULL    |                |
+| category_id | int(10) unsigned | NO   |     | NULL    |                |
++-------------+------------------+------+-----+---------+----------------+
+
++------------+------------------+------+-----+---------+----------------+
+| Field      | Type             | Null | Key | Default | Extra          |
++------------+------------------+------+-----+---------+----------------+
+| id         | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| package_id | int(10) unsigned | NO   |     | NULL    |                |
+| tag_id     | int(10) unsigned | NO   |     | NULL    |                |
++------------+------------------+------+-----+---------+----------------+
+
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(254)     | NO   | UNI | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
