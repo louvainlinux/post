@@ -136,7 +136,7 @@ def package_generator():
 				package["name"] = load["name"]
 				package["descriptionShort"] = load["description"]["short"]
 				package["descriptionLong"] = load["description"]["long"]
-				package["preSelected"] = load["preselected"]
+				package["preSelected"] = 1 if load["preselected"] else 0
 				package["category"] = list(set([c.lower() for c in load["category"]]))
 				package["tag"] = list(set([t.lower() for t in load["tag"]]))
 				package_list.append(package)

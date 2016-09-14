@@ -1,100 +1,81 @@
-var database = require('../config/database').database;
-var Sequelize = require('../config/database').Sequelize;
+var knex = require('../config/database').knex;
+var bookshelf = require('bookshelf')(knex);
 
-var Package = database.define('Package', {
-    name: {type: Sequelize.STRING, allowNull: false, unique: true},
-    descriptionShort: {type: Sequelize.STRING, allowNull: false},
-    descriptionLong: {type: Sequelize.TEXT, allowNull: false},
-    preSelected: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
-    });
+//Models
 
-var Category = database.define('Category', {
-    name: {type: Sequelize.STRING, allowNull: false, unique: true}
-    });
+var Package = bookshelf.Model.extend({
+    tableName: 'packages',
+    tags: function() {
+        return this.belongsToMany(Tag);
+    },
+    categories: function(){
+        return this.belongsToMany(Category)
+    },
+    installs: function(){
+        return this.hasMany(Install, 'package_id');
+    }
+});
 
-var Tag = database.define('Tag', {
-    name: {type: Sequelize.STRING, allowNull: false, unique: true}
-    });
+var Category = bookshelf.Model.extend({
+    tableName: 'categories',
+    packages: function(){
+        return this.belongsToMany(Package);
+    }
+});
 
-var PrimaryInstall = database.define('PrimaryInstall', {
-    name: {type: Sequelize.STRING, allowNull: false, unique: "compositeNameVersion"},
-    //description: {type: Sequelize.STRING, allowNull: false, defaultValue: 'todo'},
-    version: {type: Sequelize.STRING, allowNull: false, unique: "compositeNameVersion"},
-    installPre: {type: Sequelize.STRING, allowNull: true},
-    installCustom: {type: Sequelize.STRING, allowNull: false},
-    installPost: {type: Sequelize.STRING, allowNull: true}
-    });
+var Tag = bookshelf.Model.extend({
+    tableName: 'tags',
+    packages: function() {
+        return this.belongsToMany(Package);
+    }
+});
 
-var AlternateInstall = database.define('AlternateInstall', {
-    name: {type: Sequelize.STRING, allowNull: false},
-    description: {type: Sequelize.STRING, allowNull: false, defaultValue: 'todo'},
-    installPre: {type: Sequelize.STRING, allowNull: true},
-    installCustom: {type: Sequelize.STRING, allowNull: false},
-    installPost: {type: Sequelize.STRING, allowNull: true}
-    });
+var Install = bookshelf.Model.extend({
+    tableName: 'installs',
+    target: function(){
+        return this.belongsTo(Package, 'package_id');
+    },
+    alternates: function(){
+        return this.hasMany(Alternate, 'install_id');
+    }
+});
 
-/*
-Package.belongsToMany(Category, {through: 'PackageCategory'});
-Category.belongsToMany(Package, {through: 'PackageCategory'});
+var Alternate = bookshelf.Model.extend({
+    tableName: 'alternates',
+    target: function(){
+        return this.belongsTo(Install, 'install_id');
+    }
+});
 
+// Collections
 
-Package.belongsToMany(Tag, {through: 'PackageTag'});
-Tag.belongsToMany(Package, {through: 'PackageTag'});
-*/
-Package.hasMany(Category, {joinTableName: 'PackageCategory'});
-Category.hasMany(Package, {joinTableName: 'PackageCategory'});
+var Packages = bookshelf.Collection.extend({
+    model: Package
+});
+var Categories = bookshelf.Collection.extend({
+    model: Category
+});
+var Tags = bookshelf.Collection.extend({
+    model: Tag
+});
+var Installs = bookshelf.Collection.extend({
+    model: Install
+});
+var Alternates = bookshelf.Collection.extend({
+    model: Alternate
+});
 
-Package.hasMany(Tag, {joinTableName: 'PackageTag'});
-Tag.hasMany(Package, {joinTableName: 'PackageTag'});
-
-Package.hasMany(PrimaryInstall, {as: 'PrimaryInstall'});
-PrimaryInstall.hasMany(AlternateInstall, {as: 'AlternateInstall'});
-
-
-var fs = require("fs");
-database.sync({force:true})
-    .then(function(){
-        var content_tag = fs.readFileSync("./temp/tag.json");
-        var json_tag = JSON.parse(content_tag);
-        json_tag.tag.forEach(function(tag){
-            Tag.create({name: tag});
-        });
-    })
-    .then(function(){
-        var content_cat = fs.readFileSync("./temp/category.json");
-        var json_cat = JSON.parse(content_cat);
-        json_cat.category.forEach(function(cat){
-            Category.create({name: cat});
-        });  
-    })
-    .then(function(){
-        var content_package = fs.readFileSync("./temp/package.json");
-        var json_package = JSON.parse(content_package);
-        console.log(json_package);
-        json_package.forEach(function(pack){
-            Package.create(
-                {
-                    name: pack.name,
-                    descriptionShort: pack.descriptionShort,
-                    descriptionLong: pack.descriptionLong,
-                    preSelected: pack.preSelected,
-                    Category: pack.category,
-                    Tag: pack.tag
-                }, {
-                    include: [ Category, Tag]                    
-                }
-                );
-        });
-    })
-    .then(function(){/*p_inst*/console.log("3")})
-    .then(function(){/*a_inst*/console.log("4")});
-
-
-
+module.exports.knex = knex;
+module.exports.bookshelf = bookshelf;
 
 module.exports.Package = Package;
 module.exports.Category = Category;
 module.exports.Tag = Tag;
-module.exports.PrimaryInstall = PrimaryInstall;
-module.exports.AlternateInstall = AlternateInstall;
-module.exports.database = database;
+module.exports.Install = Install;
+module.exports.Alternate = Alternate;
+
+module.exports.Packages = Packages;
+module.exports.Categories = Categories;
+module.exports.Tags = Tags;
+module.exports.Installs = Installs;
+module.exports.Alternates = Alternates;
