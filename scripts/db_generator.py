@@ -119,7 +119,7 @@ def insert_package_waterfall(conn, cursor, tag_dict, cat_dict):
 					alternate["installPre"] = k["pre"]
 					alternate["installCustom"] = k["install"]
 					alternate["installPost"] = k["post"]
-					cursor.execute("INSERT INTO alternates (name, description, preInstall, install, postInstall, package_id) VALUES ('%s','%s','%s','%s','%s',%i)" % (install["name"], install["version"], install["installPre"], install["installCustom"], install["installPost"], package_id))								
+					cursor.execute("INSERT INTO alternates (name, description, preInstall, install, postInstall, install_id) VALUES ('%s','%s','%s','%s','%s',%i)" % (alternate["name"], alternate["description"], alternate["installPre"], alternate["installCustom"], alternate["installPost"], install_id))								
 					conn.commit()
 
 
